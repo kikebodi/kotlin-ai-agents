@@ -57,3 +57,6 @@ data/
 
 # Ollama models (if local)
 ollama/
+
+# Secrets file
+local.properties
