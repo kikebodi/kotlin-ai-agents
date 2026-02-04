@@ -54,7 +54,7 @@ gradlew.bat
 .kotlincache/
 
 # Data dir (local grants/docs)
-data/
+local-data/
 !.gitkeep
 
 # Ollama models (if local)
