@@ -18,6 +18,6 @@ jobs:
         with:
           gradle-version: 8.8
       - name: Build
-        run: gradle :domain:test :data:test :app:test :app:installDist
+        run: gradle :domain:jvmTest :data:jvmTest :app:test :app:installDist
       - name: Docker build
         run: docker build -t dogv-agent .
