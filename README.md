@@ -1,28 +1,62 @@
-# Kotlin AI Agents Portfolio
+# DOGV AI Opportunity Agent (Kotlin Multiplatform + Koog)
 
-Repo hosting 3 production-ready Kotlin/Koog AI agents for enterprise automation.
+Agent that scans the daily **Diari Oficial de la Generalitat Valenciana (DOGV)**, extracts the PDF bulletin, and uses an OpenAI-compatible LLM to surface AI/IT consulting opportunities with structured JSON output.
 
-## Projects Overview
-| Project | Description | Status |
-|---------|-------------|--------|
-| 1. EU Grant Finder | RAG agent scrapes EU tenders (Horizon, EIC), matches to your company. | MVP skeleton |
-| 2. Your own boss | Agentic task orchestrator. Picks task from backlog and creates the schedule of the day taking into account your business goals. | Planned |
-| 3. Placeholder | TBD | Planned |
+## Problem Solved
+Public bulletins are dense and time-consuming. This agent automates discovery for AI/IT consultants by:
+- Finding the latest DOGV PDF
+- Extracting text
+- Classifying and scoring opportunities
+- Returning clean JSON with sources
 
-### Tech Stack
-- Kotlin + Koog framework agents tools
-- Spring Boot server API
-- Ollama OpenAI LLMs
-- Tools Web scraper EU portals vector DB grants profile matcher APIs
+## Architecture (Clean Architecture + Koog-inspired tools)
 
-### Quick Setup Run
-1. `git clone https://github.com/kikebodi/kotlin-ai-agents`
-2. `chmod +x gradlew ./gradlew build`
-3. `ollama serve`
-4. `ollama pull llama3.2`
-5. `./gradlew bootRun`
-6. Test: `curl -X POST http localhost 8080 find-grants -H Content-Type application/json -d @example.json`
+```mermaid
+graph TD
+    CLI[CLI Runner] --> UC[AnalyzeDogvUseCase]
+    UC --> DR[DogvRepository]
+    UC --> LR[LlmRepository]
+    DR --> DOGV[Dogv PDF Source]
+    DR --> PDF[PDF Text Extractor]
+    LR --> OPENAI[OpenAI-compatible API]
+    LR --> TOOLS[Koog Tools]
+```
 
-### Project 1 - EU Grant Finder
+## Modules
+- `domain`: Pure Kotlin domain models + use cases
+- `data`: Koog tools, HTTP/PDF extraction, OpenAI client
+- `app`: CLI entrypoint
 
-RAG agent finds EU grants/tenders matching your profile. Scrapes TED, Horizon Europe, NextGenEU. Scores by grant fit, deadline, eligibility.
+## Setup
+
+```bash
+./gradlew :app:run --args="-l es -m 15"
+```
+
+### Environment
+- `OPENAI_API_KEY` (required)
+- Optional: `OPENAI_BASE_URL` (default `https://api.openai.com/v1`)
+- Optional: `OPENAI_MODEL` (default `gpt-4o-mini`)
+
+## Docker
+
+```bash
+docker build -t dogv-agent .
+docker run --rm -e OPENAI_API_KEY=sk-xxx dogv-agent
+```
+
+## docker-compose (local LLM mock)
+
+```bash
+docker compose up --build
+```
+
+## Demo
+Demo placeholder removed to keep repository text-only.
+
+## Learnings
+- Kotlin Multiplatform keeps domain logic portable.
+- Koog tool abstractions make it easy to add new sources.
+
+## CI
+GitHub Actions runs ktlint, tests, and builds a Docker image on PRs.

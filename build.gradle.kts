@@ -1,19 +1,24 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+
 group = "com.kikebodi.agents"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 plugins {
-    kotlin("jvm") version "2.1.21"
+    kotlin("multiplatform") version "2.1.21" apply false
+    kotlin("plugin.serialization") version "2.1.21" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.2" apply false
 }
 
-repositories {
-    mavenCentral()
+subprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    implementation(kotlin("stdlib"))
-    implementation("ai.koog:koog-agents:0.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+allprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    testImplementation(kotlin("test"))
-
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.2.1")
+    }
 }
