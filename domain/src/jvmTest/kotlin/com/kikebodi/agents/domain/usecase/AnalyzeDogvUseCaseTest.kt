@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldBe
 
 class AnalyzeDogvUseCaseTest : StringSpec({
     "returns empty response when no pdf is available" {
-        val useCase = AnalyzeDogvUseCase(
+        val useCase = AnalyzeDogvUseCaseImpl(
             dogvRepository = object : DogvRepository {
                 override suspend fun findTodayPdfUrl(language: String) = null
                 override suspend fun fetchPdfText(url: String) = ""
@@ -27,7 +27,7 @@ class AnalyzeDogvUseCaseTest : StringSpec({
     }
 
     "returns opportunities when pdf exists" {
-        val useCase = AnalyzeDogvUseCase(
+        val useCase = AnalyzeDogvUseCaseImpl(
             dogvRepository = object : DogvRepository {
                 override suspend fun findTodayPdfUrl(language: String) = "https://example.com/dogv.pdf"
                 override suspend fun fetchPdfText(url: String) = "some text"

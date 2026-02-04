@@ -1,4 +1,4 @@
-package com.kikebodi.agents.domain.ports
+package com.kikebodi.agents.data
 
 import com.kikebodi.agents.domain.model.Opportunity
 

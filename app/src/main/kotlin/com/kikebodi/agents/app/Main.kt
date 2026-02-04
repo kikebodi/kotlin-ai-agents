@@ -4,9 +4,9 @@ import com.kikebodi.agents.data.agent.DogvAgent
 import com.kikebodi.agents.data.config.AgentConfig
 import com.kikebodi.agents.data.dogv.DogvRepositoryImpl
 import com.kikebodi.agents.data.llm.KoogLlmRepository
-import com.kikebodi.agents.data.pdf.JvmPdfTextExtractor
+import com.kikebodi.agents.data.tools.PdfTextExtractorImpl
 import com.kikebodi.agents.domain.model.AgentRequest
-import com.kikebodi.agents.domain.usecase.AnalyzeDogvUseCase
+import com.kikebodi.agents.domain.usecase.AnalyzeDogvUseCaseImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -39,9 +39,9 @@ fun main(args: Array<String>) {
         Thread.currentThread().contextClassLoader.getResourceAsStream("system_prompt.txt")
     ) { "system_prompt.txt resource not found" }
     val systemPrompt = systemPromptStream.bufferedReader().use { it.readText() }
-    val dogvRepository = DogvRepositoryImpl(httpClient, JvmPdfTextExtractor())
+    val dogvRepository = DogvRepositoryImpl(httpClient, PdfTextExtractorImpl())
     val llmRepository = KoogLlmRepository(config, systemPrompt)
-    val useCase = AnalyzeDogvUseCase(dogvRepository, llmRepository)
+    val useCase = AnalyzeDogvUseCaseImpl(dogvRepository, llmRepository)
     val agent = DogvAgent(useCase)
 
     runBlocking {
