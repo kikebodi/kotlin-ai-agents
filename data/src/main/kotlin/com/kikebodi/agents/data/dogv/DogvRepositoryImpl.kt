@@ -3,7 +3,7 @@ package com.kikebodi.agents.data.dogv
 import com.kikebodi.agents.data.observability.MetricsRegistry
 import com.kikebodi.agents.data.observability.NoopMetricsRegistry
 import com.kikebodi.agents.data.tools.PdfTextExtractor
-import com.kikebodi.agents.data.DogvRepository
+import com.kikebodi.agents.data.tools.PdfTextExtractorImpl
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -17,10 +17,10 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 
 class DogvRepositoryImpl(
-    private val pdfTextExtractor: PdfTextExtractor,
+    private val pdfTextExtractor: PdfTextExtractor = PdfTextExtractorImpl(),
     private val metricsRegistry: MetricsRegistry = NoopMetricsRegistry
 ) : DogvRepository {
-    val httpClient = HttpClient(OkHttp) {
+    private val httpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true

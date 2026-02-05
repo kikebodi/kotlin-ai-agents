@@ -1,38 +1,23 @@
 plugins {
-    kotlin("multiplatform")
+    kotlin("jvm")
     kotlin("plugin.serialization")
 }
 
 kotlin {
-    jvm()
-    linuxX64()
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":data"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation("io.kotest:kotest-framework-engine:5.9.1")
-                implementation("io.kotest:kotest-assertions-core:5.9.1")
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation("io.kotest:kotest-runner-junit5:5.9.1")
-            }
-        }
-    }
-    sourceSets.jvmTest.dependencies {
-        implementation(kotlin("test"))
-    }
+    jvmToolchain(21)
 }
 
-tasks.withType<Test>().configureEach {
+dependencies {
+    implementation(project(":data"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
+    testImplementation(kotlin("test"))
+    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
+}
+
+tasks.test {
     useJUnitPlatform()
 }
