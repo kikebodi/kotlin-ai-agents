@@ -37,6 +37,8 @@ graph TD
 - `OPENAI_API_KEY` (required)
 - Optional: `OPENAI_BASE_URL` (default `https://api.openai.com/v1`)
 - Optional: `OPENAI_MODEL` (default `gpt-4o-mini`)
+- Optional: `DOGV_TRUSTSTORE_PATH` (custom Java truststore for HTTPS)
+- Optional: `DOGV_TRUSTSTORE_PASSWORD` (password for the truststore, if set)
 
 ## Docker
 

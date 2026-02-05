@@ -1,8 +1,8 @@
 package com.kikebodi.agents.domain
 
-import com.kikebodi.agents.data.dogv.DogvRepositoryImpl
 import com.kikebodi.agents.domain.model.AgentResponse
 import com.kikebodi.agents.data.dogv.DogvRepository
+import com.kikebodi.agents.data.dogv.DogvRepositoryImpl
 import com.kikebodi.agents.domain.usecase.CalculateDogvTodayUrl
 import com.kikebodi.agents.domain.usecase.CalculateDogvTodayUrlImpl
 import kotlinx.serialization.json.Json
