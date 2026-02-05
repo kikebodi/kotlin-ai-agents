@@ -1,4 +1,4 @@
-# DOGV AI Opportunity Agent (Kotlin Multiplatform + Koog)
+# DOGV AI Opportunity Agent (Kotlin/JVM + Koog)
 
 Agent that scans the daily **Diari Oficial de la Generalitat Valenciana (DOGV)**, extracts the PDF bulletin, and uses an OpenAI-compatible LLM to surface AI/IT consulting opportunities with structured JSON output.
 
@@ -37,6 +37,8 @@ graph TD
 - `OPENAI_API_KEY` (required)
 - Optional: `OPENAI_BASE_URL` (default `https://api.openai.com/v1`)
 - Optional: `OPENAI_MODEL` (default `gpt-4o-mini`)
+- Optional: `DOGV_TRUSTSTORE_PATH` (custom Java truststore for HTTPS)
+- Optional: `DOGV_TRUSTSTORE_PASSWORD` (password for the truststore, if set)
 
 ## Docker
 
@@ -55,7 +57,7 @@ docker compose up --build
 Demo placeholder removed to keep repository text-only.
 
 ## Learnings
-- Kotlin Multiplatform keeps domain logic portable.
+- Kotlin/JVM keeps domain logic simple and fast to iterate.
 - Koog tool abstractions make it easy to add new sources.
 
 ## CI

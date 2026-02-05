@@ -1,4 +1,4 @@
-package com.kikebodi.agents.data
+package com.kikebodi.agents.domain.repository
 
 import com.kikebodi.agents.domain.model.Opportunity
 

@@ -1,4 +1,4 @@
-package com.kikebodi.agents.data
+package com.kikebodi.agents.data.dogv
 
 interface DogvRepository {
     suspend fun pingUrl(url: String): Boolean
