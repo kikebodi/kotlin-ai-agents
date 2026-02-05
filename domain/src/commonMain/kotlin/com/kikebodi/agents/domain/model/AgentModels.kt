@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 data class AgentRequest(
     val language: String = "es",
     val targetDateIso: String? = null,
-    val maxItems: Int = 20
+    val maxItems: Int = 20,
 )
 
 @Serializable
 data class AgentResponse(
-    val sourceUrl: String?,
-    val items: List<Opportunity>
+    val items: List<Opportunity>,
+    val sourceUrl: String? = null,
 )

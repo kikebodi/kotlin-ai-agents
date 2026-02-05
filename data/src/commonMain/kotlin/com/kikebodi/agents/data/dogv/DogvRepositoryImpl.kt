@@ -11,12 +11,24 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
 import kotlinx.datetime.Clock
+import kotlinx.serialization.json.Json
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
 
 class DogvRepositoryImpl(
-    private val httpClient: HttpClient,
     private val pdfTextExtractor: PdfTextExtractor,
     private val metricsRegistry: MetricsRegistry = NoopMetricsRegistry
 ) : DogvRepository {
+    val httpClient = HttpClient(OkHttp) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+                encodeDefaults = true
+            })
+        }
+    }
+
     private val logger = KotlinLogging.logger {}
 
     override suspend fun pingUrl(url: String): Boolean {

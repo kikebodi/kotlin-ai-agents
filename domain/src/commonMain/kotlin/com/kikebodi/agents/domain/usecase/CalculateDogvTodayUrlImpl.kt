@@ -6,7 +6,7 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
-internal class CalculateDogvTodayUrlImpl: CalculateDogvTodayUrl {
+class CalculateDogvTodayUrlImpl: CalculateDogvTodayUrl {
     override fun getDogvUrl(): String {
         val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         val year = today.year

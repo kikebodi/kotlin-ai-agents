@@ -7,7 +7,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import com.kikebodi.agents.data.config.AgentConfig
 
-class KoogExampleAgent {
+internal class KoogExampleAgent {
 
     suspend fun run(prompt: String): String {
         simpleOllamaAIExecutor().use { executor ->
@@ -30,5 +30,6 @@ class KoogExampleAgent {
             val initialMessage = readln()
             agent.run(initialMessage)
         }
+        return "Done"
     }
 }
