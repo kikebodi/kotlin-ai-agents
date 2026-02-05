@@ -27,6 +27,9 @@ kotlin {
             }
         }
     }
+    sourceSets.jvmTest.dependencies {
+        implementation(kotlin("test"))
+    }
 }
 
 tasks.withType<Test>().configureEach {

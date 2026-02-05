@@ -1,7 +1,6 @@
 package com.kikebodi.agents.app
 
 import com.kikebodi.agents.domain.model.AgentResponse
-import com.kikebodi.agents.domain.usecase.AnalyzeDogvUseCase
 import com.kikebodi.agents.domain.usecase.CalculateDogvTodayUrl
 import com.kikebodi.agents.domain.usecase.CalculateDogvTodayUrlImpl
 import kotlinx.serialization.json.Json
