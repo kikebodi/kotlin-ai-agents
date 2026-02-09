@@ -5,7 +5,6 @@ import com.kikebodi.agents.domain.DogvAiAgentImpl
 import kotlinx.coroutines.runBlocking
 
 fun main(args: Array<String>) {
-
     val agent: DogvAIAgent = DogvAiAgentImpl()
     runBlocking { agent.run() }
 }

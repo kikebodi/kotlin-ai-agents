@@ -6,12 +6,13 @@ import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import com.kikebodi.agents.data.config.AgentConfig
+import com.kikebodi.agents.data.model.Opportunity
 
 internal class KoogExampleAgent {
 
     suspend fun run(prompt: String): String {
         simpleOllamaAIExecutor().use { executor ->
-            val agent = AIAgent<String, Unit>(
+            val agent = AIAgent<String, List<Opportunity>>(
                 promptExecutor = executor,
                 llmModel = OllamaModels.Meta.LLAMA_3_2,
                 temperature = 0.7,

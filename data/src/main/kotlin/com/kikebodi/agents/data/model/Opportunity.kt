@@ -1,8 +1,16 @@
-package com.kikebodi.agents.domain.model
+package com.kikebodi.agents.data.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("OpportunityList")
+data class OpportunityList(
+    val items: List<Opportunity>
+)
+
+@Serializable
+@SerialName("Opportunity")
 data class Opportunity(
     val category: OpportunityCategory,
     val title: String,
@@ -17,6 +25,7 @@ data class Opportunity(
 )
 
 @Serializable
+@SerialName("OpportunityCategory")
 enum class OpportunityCategory {
     AYUDA_SUBVENCION,
     LICITACION_CONTRATO,

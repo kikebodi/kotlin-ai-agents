@@ -1,4 +1,4 @@
-package com.kikebodi.agents.domain.model
+package com.kikebodi.agents.data.model
 
 import kotlinx.serialization.Serializable
 
