@@ -5,12 +5,13 @@ import com.kikebodi.agents.data.tools.PdfTextExtractorImpl
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import java.io.FileInputStream
 import java.security.KeyStore
 import java.security.SecureRandom
@@ -18,8 +19,6 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
-import kotlinx.datetime.Clock
-import kotlinx.serialization.json.Json
 
 class DogvRepositoryImpl(
     private val pdfTextExtractor: PdfTextExtractor = PdfTextExtractorImpl(),
