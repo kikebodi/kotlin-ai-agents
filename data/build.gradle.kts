@@ -1,6 +1,80 @@
+import java.util.Properties
+
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
+}
+
+fun Project.loadLocalProperties(): Properties =
+    Properties().apply {
+        val f = rootProject.file("local.properties")
+        if (f.exists()) f.inputStream().use { load(it) }
+    }
+
+/**
+ * Load local.properties
+ */
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
+}
+
+val openAiApiKey = localProperties.getProperty("OPENAI_API_KEY")
+    ?: error("OPENAI_API_KEY not found in local.properties")
+
+/**
+ * Generate BuildConfig.kt
+ */
+val generateBuildConfig by tasks.registering {
+
+    val outputDir = layout.buildDirectory.dir(
+        "generated/sources/buildconfig/kotlin/main"
+    )
+
+    outputs.dir(outputDir)
+
+    doLast {
+
+        val file = outputDir.get()
+            .file("com/kikebodi/agents/data/BuildConfig.kt")
+            .asFile
+
+        file.parentFile.mkdirs()
+
+        val escaped = openAiApiKey
+            .replace("\\", "\\\\")
+            .replace("\"", "\\\"")
+
+        file.writeText(
+            """
+            package com.kikebodi.agents.data
+
+            object BuildConfig {
+                const val OPENAI_API_KEY = "$escaped"
+            }
+            """.trimIndent()
+        )
+    }
+}
+
+/**
+ * Register generated source folder
+ */
+sourceSets.main {
+    kotlin.srcDir(
+        layout.buildDirectory.dir(
+            "generated/sources/buildconfig/kotlin/main"
+        )
+    )
+}
+
+/**
+ * Ensure generation runs before compile
+ */
+tasks.compileKotlin {
+    dependsOn(generateBuildConfig)
 }
 
 kotlin {
