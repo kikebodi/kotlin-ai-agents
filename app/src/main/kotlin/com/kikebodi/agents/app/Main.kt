@@ -6,5 +6,8 @@ import kotlinx.coroutines.runBlocking
 
 fun main(args: Array<String>) {
     val agent: DogvAIAgent = DogvAiAgentImpl()
-    runBlocking { agent.run() }
+    runBlocking {
+        val output = agent.run()
+        println(output)
+    }
 }

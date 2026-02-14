@@ -27,11 +27,13 @@ class DogvAiAgentImpl: DogvAIAgent {
         // Agent work
         val opportunityList = llmRepository.getOpportunitiesFromDogvDocument(pdfContent)
         // Print response - for testing
-        val outputJson = Json { prettyPrint = true }.encodeToString(
+        val outputJson = Json {
+            explicitNulls = true
+            encodeDefaults = true
+        }.encodeToString(
             OpportunityList.serializer(),
             opportunityList
         )
-        println(outputJson)
         return outputJson
     }
 }
